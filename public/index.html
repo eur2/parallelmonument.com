@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <link rel="preload" href="AOC.woff2" as="font" crossorigin="anonymous" />
+    <!-- <link
+      rel="preload"
+      href="C059-Roman.woff2"
+      as="font"
+      crossorigin="anonymous"
+    /> -->
+    <style>
+      @font-face {
+        font-family: 'AOC';
+        src: url('AOC.woff') format('woff');
+        src: url('AOC.woff2') format('woff2');
+        font-weight: bold;
+        font-style: normal;
+        font-display: fallback;
+      }
+      /* @font-face {
+        font-family: 'C059';
+        font-display: swap;
+        src: url('C059-Roman.woff') format('woff');
+        src: url('C059-Roman.woff2') format('woff2');
+        font-weight: 600;
+        font-style: normal;
+      } */
+      html {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-tap-highlight-color: transparent;
+        word-spacing: -0.01em;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      /* ::selection {
+        text-shadow: none;
+        color: rgb(0, 0, 255);
+      } */
+      a {
+        color: rgb(0, 0, 255);
+        text-decoration: underline;
+      }
+
+      h1,
+      h2,
+      h3,
+      p,
+      button {
+        font-weight: normal;
+        font-style: normal;
+        line-height: 1.1;
+        background-color: transparent;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 3.5vw;
+      }
+      h3 {
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+      }
+      h1 {
+        font-family: 'AOC', Arial, Helvetica, sans-serif;
+        letter-spacing: -0.02em;
+      }
+      h1,
+      h2 {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+      }
+      p {
+        font-size: 1.2rem;
+      }
+      button {
+        -webkit-appearance: none;
+        border: 0;
+        outline: 0;
+        cursor: pointer;
+        background-color: transparent;
+        /*background-color: rgba(0, 0, 0, 0.8);*/
+        color: black;
+        border-radius: 3rem;
+        border: solid 2px black;
+        padding: 0.5rem;
+        transition: all 0.2s;
+      }
+      .sat button {
+        color: white;
+        border: solid 1px white;
+      }
+      .sat .close {
+        color: black;
+      }
+
+      .border {
+        /*background-color: transparent;*/
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        border-radius: 3rem;
+        padding: 0.5rem;
+        display: flex;
+      }
+      .b-white {
+        border: 1px solid white !important;
+      }
+      .btn {
+        border-radius: 3rem;
+        padding: 0.5rem;
+        font-size: 1rem;
+      }
+
+      .close {
+        display: flex;
+        margin: auto;
+        border: 1px solid black;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+      input,
+      textarea,
+      .form button {
+        border: 0;
+        font: 2rem Georgia, 'Times New Roman', Times, serif;
+        font-weight: normal;
+        background-color: transparent;
+        color: white !important;
+      }
+      .firebaseui-input {
+        color: black !important;
+      }
+      textarea {
+        height: 270px;
+      }
+      :invalid {
+        box-shadow: 0 0 2px 1px red;
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 1rem;
+        z-index: 10;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        margin: 1em;
+        z-index: 10;
+      }
+      .lang button {
+        font-size: 1.2rem;
+        background-color: white;
+        color: black;
+        border: 0 !important;
+        height: 35px;
+      }
+      .current {
+        background-color: black !important;
+        color: white !important;
+      }
+      .social {
+        width: 35px;
+      }
+      .lang {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        margin: 1em;
+        z-index: 10;
+        display: flex;
+      }
+      .form {
+        position: fixed;
+        top: 0;
+        right: 0;
+        margin: 1em;
+        display: flex;
+        flex-direction: column;
+        z-index: 10;
+        transition: all 0.2s;
+        max-width: 420px;
+      }
+      .form-row div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .latlng {
+        position: fixed;
+        bottom: 0;
+        left: 25%;
+        right: 25%;
+        margin: 1em;
+        display: flex;
+        justify-content: center;
+      }
+
+      .latlng input {
+        font-size: 1rem;
+        text-align: center;
+        white-space: nowrap;
+        width: 73px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      /*.modal-open {
+        display: flex;
+        flex-direction: column;
+        max-width: 50%;
+        margin: auto;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+      }*/
+      .infowindow {
+        max-width: 400px;
+        overflow: hidden;
+      }
+      .modal-open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /*background-color: rgba(0, 0, 0, 0.8);
+              color: white;*/
+        background-color: rgba(0, 256, 0, 1);
+        color: black;
+        padding: 1em;
+        overflow: auto;
+      }
+      .content {
+        max-width: 100%;
+        padding-bottom: 4rem;
+      }
+
+      /*.marker {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        border-radius: 100%;
+        user-select: none;
+        transform: translate(-50%, -50%);
+      }*/
+      .row {
+        display: flex;
+        flex-direction: column-reverse;
+      }
+      .card-body {
+        max-width: 45%;
+        margin-bottom: 3rem;
+        border-radius: 3rem;
+        background: #eeeeee;
+        padding: 1rem;
+        margin: 1rem;
+      }
+      .center {
+        display: flex;
+        justify-content: center;
+      }
+      .center span {
+        width: 60px;
+        overflow: hidden;
+        text-overflow: clip;
+      }
+      .bborder {
+        border: 1px solid black;
+        border-radius: 3rem;
+      }
+      @media only screen and (max-width: 800px) {
+        h1,
+        h2,
+        h3,
+        button {
+          font-size: 2rem;
+        }
+        .card-body {
+          max-width: 100%;
+        }
+        .admin textarea {
+          height: auto;
+        }
+        .latlng {
+          left: auto;
+          right: 0;
+        }
+        .latlng input {
+          width: 35px;
+          text-overflow: clip;
+        }
+        .content {
+          padding-right: 0;
+        }
+      }
+      @media only screen and (max-width: 600px) {
+        .form {
+          max-width: 100%;
+          left: 0;
+        }
+        h1,
+        h2 {
+          padding-left: 0.25rem;
+          padding-right: 0.25rem;
+        }
+      }
+
+      @media only screen and (max-width: 480px) {
+        h1,
+        h2,
+        h3,
+        button {
+          font-size: 1.5rem;
+        }
+        p {
+          font-size: 1rem;
+        }
+        input,
+        textarea,
+        .form button {
+          font: 1.5rem Georgia, 'Times New Roman', Times, serif;
+        }
+        textarea {
+          height: 80px;
+        }
+        .latlng {
+          display: none;
+        }
+
+        header,
+        nav,
+        .lang,
+        .form,
+        .card-body {
+          margin: 0.5rem;
+        }
+        .modal-open {
+          padding: 0.5rem;
+        }
+      }
+      @media only screen and (max-width: 360px) {
+        h1,
+        h2,
+        button,
+        h3 {
+          font-size: 1.2rem;
+        }
+        input,
+        textarea,
+        .form button {
+          font: 1.2rem Georgia, 'Times New Roman', Times, serif;
+        }
+      }
+      @media only screen and (max-width: 310px) {
+        h1,
+        h2,
+        button,
+        h3 {
+          font-size: 1rem;
+        }
+        input,
+        textarea,
+        .form button {
+          font: 1rem Georgia, 'Times New Roman', Times, serif;
+        }
+      }
+    </style>
+    <!-- Start Single Page Apps for GitHub Pages -->
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // https://github.com/rafrex/spa-github-pages
+      // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+      // ----------------------------------------------------------------------
+      // This script checks to see if a redirect is present in the query string
+      // and converts it back into the correct url and adds it to the
+      // browser's history using window.history.replaceState(...),
+      // which won't cause the browser to attempt to load the new url.
+      // When the single page app is loaded further down in this file,
+      // the correct url will be waiting in the browser's history for
+      // the single page app to route accordingly.
+      (function(l) {
+        if (l.search) {
+          var q = {};
+          l.search
+            .slice(1)
+            .split('&')
+            .forEach(function(v) {
+              var a = v.split('=');
+              q[a[0]] = a
+                .slice(1)
+                .join('=')
+                .replace(/~and~/g, '&');
+            });
+          if (q.p !== undefined) {
+            window.history.replaceState(
+              null,
+              null,
+              l.pathname.slice(0, -1) +
+                (q.p || '') +
+                (q.q ? '?' + q.q : '') +
+                l.hash
+            );
+          }
+        }
+      })(window.location);
+    </script>
+    <!-- End Single Page Apps for GitHub Pages -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Parallel Monument</title>
+    <meta name="description" content="" />
+    <meta name="og:type" content="website" />
+    <meta name="og:title" content="Parallel Monument" />
+    <meta name="og:description" content="" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Parallel Monument" />
+    <meta name="twitter:description" content="" />
+    <meta name="theme-color" content="#000000" />
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+  </head>
+
+  <body>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
