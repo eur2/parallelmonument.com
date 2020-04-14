@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+		<title>Parallel Monuments</title>
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDf0qX8Na9y5ehoHMyNnLObA45UUvMg-Ss"
+			async
+			defer
+		></script>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+		/>
+		<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+		<script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js"></script>
+		<script src="https://unpkg.com/leaflet.gridlayer.googlemutant@latest/Leaflet.GoogleMutant.js"></script>
+
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+					'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+					'Droid Sans', 'Helvetica Neue', sans-serif;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				letter-spacing: 0.015em;
+				word-spacing: -0.02em;
+			}
+			article,
+			aside,
+			footer,
+			header,
+			main,
+			section {
+				display: block;
+			}
+			::selection {
+				text-shadow: none;
+				background-color: yellow;
+			}
+			h1,
+			h2,
+			h3,
+			p {
+				font-weight: 600;
+				font-style: normal;
+				line-height: 1.1;
+				background-color: transparent;
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+					'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+					'Droid Sans', 'Helvetica Neue', sans-serif;
+			}
+			h1,
+			h2,
+			h3 {
+				font-size: 2.25rem;
+			}
+			p {
+				font-size: 1.125rem;
+				letter-spacing: 0;
+			}
+			input {
+				border: 0;
+				outline: 0;
+				font: 600 2.25rem system-ui;
+			}
+			.button {
+				background-color: black;
+				color: white;
+				border-radius: 3rem;
+				padding: 0.7rem 1rem 0.7rem 1rem;
+				overflow: hidden;
+				cursor: pointer;
+				transition: all 0.3s;
+				text-align: center;
+				z-index: 100;
+			}
+			.border {
+				color: black;
+				background-color: white;
+				border: 1px solid black;
+				border-radius: 3rem;
+				padding: 0.7rem 1rem 0.7rem 1rem;
+				overflow: hidden;
+				cursor: pointer;
+				transition: all 0.3s;
+			}
+			header {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: 1.125rem;
+				display: flex;
+				z-index: 100;
+				justify-content: space-between;
+			}
+			.modal {
+				display: flex;
+				z-index: 9;
+				position: fixed;
+				top: 1.125rem;
+				left: 10%;
+				right: 10%;
+				bottom: 15%;
+				background-color: transparent;
+				align-content: stretch;
+				border-radius: 3rem;
+			}
+			#index-content {
+				overflow: auto;
+			}
+			.item {
+			}
+			.item-content {display: flex;
+			}
+
+			.fr,
+			.en {
+				width: 50%;
+				z-index: 9;
+				overflow: auto;
+			}
+	.item-content .fr , .item-content .en {
+				overflow: visible !important;
+				margin: 1.125rem;
+			}		
+
+			.close {
+				text-align: right;
+				position: fixed;
+				top: 0;
+				right: 0;
+				z-index: 10;
+				margin: 1.125rem;
+			}
+			/*.pm_overlay{
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			max-height: 90%;
+			overflow: auto;
+			background: #fff;
+			box-sizing: border-box;
+			padding: 20px;
+			box-shadow: 0 1px 5px rgba(0,0,0,0.7);
+			border-radius: 4px;}*/
+
+			.center {
+				text-align: center;
+			}
+			@media only screen and (max-width: 1200px) {
+				h1,
+				h2,
+				h3 {
+					font-size: 1.75rem;
+				}
+			}
+			@media only screen and (max-width: 800px) {
+				h1,
+				h2,
+				h3,
+				p {
+					font-size: 1.25rem;
+				}
+				.modal {
+					left: 1rem;
+					right: 1rem;
+				}
+			}
+			@media only screen and (max-width: 600px) {
+				.modal {
+					display: block;
+					overflow: auto;
+				}
+				.fr,
+				.en {
+					width: 100%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div>
+				<h2 class="button" id="sm_opener">+</h2>
+				<div class="sm_content" style="display: none">
+					<div class="modal sm_overlay">
+						<h3 class="border sm_close close">×</h3>
+						<div class="fr">
+							<h3 class="border">
+								Créer un Parralel Monument<br /><br />
+								Qu’est-ce qui caractérise les Parallel Monuments
+								?<br /><br />
+								1. Ils existent sous forme d’information.<br />
+								2. Ils sont des représentations dont la fonction
+								est symbolique.<br />
+								3. Ils commémorent un évènement et son
+								inscription dans l’espace<br />
+								4. Ils prennent la forme d’une limite.<br />
+								5. Ils peuvent se superposer et ainsi produire
+								des intersections.<br /><br />
+
+								De cette liste de caractéristiques découle un
+								ensemble de questions. Qu'implique le fait de
+								revendiquer un territoire sans être obligé de le
+								réclamer à quelqu'un ? La violence inhérente à
+								l'appropriation est-elle nécessaire pour
+								affirmer la validité d'un monument ? L'espace
+								commun de la cartographie permet-il une
+								transformation normative suffisante pour valoir
+								la peine d'être investie ?<br /><br />
+
+								Le projet Parallel Monuments explore toutes ces
+								questions à travers des outils cartographiques.
+								L'étude prend la forme est d'une série de
+								Parallel Monuments (enceintes positionnées à
+								l'échelle mondiale et se chevauchant) et d'une
+								plateforme accessible au public pour accroître
+								et modifier la géographie de la commémoration à
+								l'échelle mondiale.
+							</h3>
+							<h3 class="border">
+								<input
+									type="input"
+									name="quand"
+									value="Quand"
+								/>
+							</h3>
+							<h3 class="border">
+								<input type="input" name="quand" value="Où" />
+							</h3>
+							<h3 class="border">
+								<input type="input" name="quand" value="Quoi" />
+							</h3>
+							<h3 class="border">
+								<input
+									type="submit"
+									name="quand"
+									value="Envoyer"
+								/>
+							</h3>
+
+							<h3 class="border">
+								Les messages postés sur Parralel Monuments sont
+								modérés pour s'assurer qu'aucun spam ou contenu
+								haineux n'est ajouté sur le site. Si vous voyez
+								quelque chose que vous pensez devoir être
+								supprimé, ou si vous souhaitez que quelque chose
+								que vous avez posté soit supprimé, veuillez nous
+								contacter.
+							</h3>
+						</div>
+						<div class="en">
+							<h3 class="border">
+								Create a Parallel Monument<br /><br />
+								What are the features of parallel monuments?<br /><br />
+								1. They exist in the information space.<br />
+								2. They are a representation and function on the
+								symbolic level.<br />
+								3. They commemorate an event and its
+								spatiality.<br />
+								4. Their form is one of boundary.<br />
+								5. They can overlap with each other, producing
+								so-called intersections.<br /><br />
+
+								From this declarative list of feature, a set of
+								questions arise: what does it imply to claim a
+								territory while not being forced to claim it
+								from someone? Is the inherent violence of
+								appropriation necessary to assert the validity
+								of a monument? Does the shared space of
+								cartography allow for enough normative
+								transformation to be worth investigating?<br /><br />
+
+								The project Parallel Monuments attempts to
+								explore these questions through a map,
+								cartographic tools and thorough documentation.
+								The result of this investigation is a number of
+								Parallel Monuments (globally positioned and
+								overlapping enclosures) and a publicly
+								accessible input method for growing and
+								modifying the geography of commemoration on a
+								wolrdwide level.
+							</h3>
+							<h3 class="border">
+								<input type="input" name="quand" value="When" />
+							</h3>
+							<h3 class="border">
+								<input
+									type="input"
+									name="quand"
+									value="Where"
+								/>
+							</h3>
+							<h3 class="border">
+								<input type="input" name="quand" value="What" />
+							</h3>
+							<h3 class="border">
+								<input
+									type="submit"
+									name="quand"
+									value="Send"
+								/>
+							</h3>
+							<h3 class="border">
+								Posts to Parralel Monuments are moderated to
+								ensure that no spam or hateful content is added
+								to the site. If you see anything you feel should
+								be removed, or would like something you posted
+								to be deleted, please contact us.
+							</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<h1 class="button" id="pm_opener">Parallel Monuments</h1>
+
+				<div class="pm_content" style="display: none">
+					<div class="modal pm_overlay">
+						<h2 class="border pm_close close">×</h2>
+						<div class="fr">
+							<h2 class="border">
+								Parallel Monument est un projet de cartographie
+								communautaire qui géolocalise histoires
+								individuelles et collectives dans l’espace de la
+								ville.<br /><br />
+
+								Les participants au projet pourront placer des
+								signes de mémoires communautaires sur le calque
+								virtuel de la ville.<br /><br />
+
+								Ces signes, circonscrits ou non, véhicules
+								symboliques des histoires sélectionnées par la
+								communauté, seront consultables en ligne.<br /><br />
+
+								Parralel Monument est un projet lauréat du
+								programme FAIRE, lancé par le Pavillon de
+								l’Arsenal et développé par MBL architectes :
+								Sebastien Martinez-Barat, Benjamin Lafore, Robin
+								Durand, Véranie Jeune avec Max Thurnheim et
+								Eurogroupe.
+							</h2>
+						</div>
+
+						<div class="en">
+							<h2 class="border">
+								Parallel Monument is a community mapping project
+								that geolocates individual and collective
+								stories in the space of the city.<br /><br />
+
+								Participants will be able to place communal
+								memory signs on the virtual layer of the
+								city.<br /><br />
+
+								These signs, symbolizing the stories selected by
+								the community, will be available online.<br /><br />
+
+								Parallel Monument is a winning project of the
+								FAIRE program, launched by Pavillon de l’Arsenal
+								and developed by MBL architects: Sébastien
+								Martinez-Barat, Benjamin Lafore, Robin Durand,
+								Véranie Jeune, in collaboration with Max
+								Turnheim and Eurogroup.
+							</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<h2 class="button" id="el_opener">&#9776;</h2>
+				<div class="el_content" style="display: none">
+					<div class="modal el_overlay">
+						<h2 class="border el_close close">×</h2>
+						<div id="index-content"></div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<div style="width:100%; height:100%; position: fixed;" id="map"></div>
+
+		<script type="text/javascript">
+			var sm_btn = document.getElementById('sm_opener');
+			var sm_modal = document.querySelector('.sm_content');
+
+			function attachModalListeners2(modalElm) {
+				modalElm
+					.querySelector('.sm_close')
+					.addEventListener('click', toggleModal2);
+				modalElm
+					.querySelector('.sm_overlay')
+					.addEventListener('click', toggleModal2);
+			}
+
+			function detachModalListeners2(modalElm) {
+				modalElm
+					.querySelector('.sm_close')
+					.removeEventListener('click', toggleModal2);
+				modalElm
+					.querySelector('.sm_overlay')
+					.removeEventListener('click', toggleModal2);
+			}
+
+			function toggleModal2() {
+				var currentState = sm_modal.style.display;
+
+				// If modal is visible, hide it. Else, display it.
+				if (currentState === 'none') {
+					sm_modal.style.display = 'block';
+					attachModalListeners2(sm_modal);
+				} else {
+					sm_modal.style.display = 'none';
+					detachModalListeners2(sm_modal);
+				}
+			}
+
+			sm_btn.addEventListener('click', toggleModal2);
+
+			var pm_btn = document.getElementById('pm_opener');
+			var pm_modal = document.querySelector('.pm_content');
+
+			function attachModalListeners1(modalElm) {
+				modalElm
+					.querySelector('.pm_close')
+					.addEventListener('click', toggleModal1);
+				modalElm
+					.querySelector('.pm_overlay')
+					.addEventListener('click', toggleModal1);
+			}
+
+			function detachModalListeners1(modalElm) {
+				modalElm
+					.querySelector('.pm_close')
+					.removeEventListener('click', toggleModal1);
+				modalElm
+					.querySelector('.pm_overlay')
+					.removeEventListener('click', toggleModal1);
+			}
+
+			function toggleModal1() {
+				var currentState = pm_modal.style.display;
+
+				// If modal is visible, hide it. Else, display it.
+				if (currentState === 'none') {
+					pm_modal.style.display = 'block';
+					attachModalListeners1(pm_modal);
+				} else {
+					pm_modal.style.display = 'none';
+					detachModalListeners1(pm_modal);
+				}
+			}
+
+			pm_btn.addEventListener('click', toggleModal1);
+
+			var el_btn = document.getElementById('el_opener');
+			var el_modal = document.querySelector('.el_content');
+
+			function attachModalListeners3(modalElm) {
+				modalElm
+					.querySelector('.el_close')
+					.addEventListener('click', toggleModal3);
+				modalElm
+					.querySelector('.el_overlay')
+					.addEventListener('click', toggleModal3);
+			}
+
+			function detachModalListeners3(modalElm) {
+				modalElm
+					.querySelector('.el_close')
+					.removeEventListener('click', toggleModal3);
+				modalElm
+					.querySelector('.el_overlay')
+					.removeEventListener('click', toggleModal3);
+			}
+
+			function toggleModal3() {
+				var currentState = el_modal.style.display;
+
+				// If modal is visible, hide it. Else, display it.
+				if (currentState === 'none') {
+					el_modal.style.display = 'block';
+					attachModalListeners3(el_modal);
+				} else {
+					el_modal.style.display = 'none';
+					detachModalListeners3(el_modal);
+				}
+			}
+
+			el_btn.addEventListener('click', toggleModal3);
+
+			var map = L.map('map' /*, { zoomControl: false }*/).setView(
+				[48.859, 2.339],
+				11
+			);
+			L.tileLayer('', {
+				attribution: ''
+			}).addTo(map);
+
+			var roads = L.gridLayer
+				.googleMutant({
+					type: 'roadmap',
+					styles: [
+						{
+							featureType: 'all',
+							elementType: 'labels.text.fill',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'all',
+							elementType: 'labels.text.stroke',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'all',
+							elementType: 'geometry.fill',
+							stylers: [
+								{ visibility: 'on' },
+								{ color: '#ffffff' }
+							]
+						},
+						{
+							featureType: 'all',
+							elementType: 'geometry.stroke',
+							stylers: [
+								{ visibility: 'on' },
+								{ color: '#000000' }
+							]
+						},
+						{
+							featureType: 'administrative',
+							elementType: 'all',
+							stylers: [{ visibility: 'on' }]
+						},
+						{
+							featureType: 'administrative',
+							elementType: 'labels.text.fill',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'administrative',
+							elementType: 'labels.text.stroke',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'landscape',
+							elementType: 'all',
+							stylers: [{ visibility: 'on' }]
+						},
+						{
+							featureType: 'poi',
+							elementType: 'all',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'road',
+							elementType: 'all',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'road',
+							elementType: 'labels',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'road',
+							elementType: 'labels.icon',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'road.highway',
+							elementType: 'geometry.fill',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'road.highway',
+							elementType: 'geometry.stroke',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'road.arterial',
+							elementType: 'all',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'road.local',
+							elementType: 'geometry.stroke',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'transit',
+							elementType: 'all',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'transit',
+							elementType: 'geometry',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'transit.station',
+							elementType: 'all',
+							stylers: [{ visibility: 'off' }]
+						},
+						{
+							featureType: 'water',
+							elementType: 'geometry',
+							stylers: [{ visibility: 'off' }]
+						}
+					]
+				})
+				.addTo(map);
+
+			var runLayer = omnivore
+				.kml(
+					'https://www.google.com/maps/d/kml?forcekml=1&mid=1wuKq8Udq2hep4-juN6Ox0O8KHCrTa27G'
+				)
+				.addTo(map)
+				.on('ready', function() {
+					//map.fitBounds(runLayer.getBounds());
+					//console.log(runLayer.toGeoJSON());
+					var dataObj = runLayer.toGeoJSON();
+					//console.log(aaa.features);
+					var dataArr = dataObj.features;
+
+					var render = dataArr.map(
+						(item, index) =>
+							'<div class="item border"><h2 class="borde center">' +
+							item.properties.name +
+							'</h2><div class="item-content"><div class="fr"><p class="borde">' +
+							item.properties.description +
+							'</p></div><div class="en"><p class="borde">' +
+							item.properties.EN +
+							'</p></div></div></div>'
+					);
+					console.log(render);
+					document.getElementById('index-content').innerHTML = render;
+
+					/*bbb.forEach(function(data) {
+						console.log(data.properties.name);
+						console.log(data.properties.description);
+
+
+						document.getElementById('index-content').innerHTML =
+							'<div><p class="border">' + data.properties.name + '</p></div>'
+					});*/
+
+					runLayer.eachLayer(function(layer) {
+						if (layer.feature.geometry.type === 'LineString') {
+							// See Leaflet path layers options
+							// http://leafletjs.com/reference-1.0.3.html#path
+							layer.setStyle({
+								color: 'black',
+								dashArray: '10',
+								// More red than green and blue => redish color
+								weight: 5
+							});
+							layer.bindPopup(
+								'<p class="border center">' +
+									layer.feature.properties.name +
+									'</p><p class="border center">' +
+									layer.feature.properties.description +
+									'</p><p class="border center">' +
+									layer.feature.properties.EN +
+									'</p>'
+							);
+							/*layer.on('mouseover', function(e) {
+								this.openPopup();
+							});
+							layer.on('mouseout', function(e) {
+								this.closePopup();
+							});*/
+						} else if (layer.feature.geometry.type === 'Polygon') {
+							layer.setStyle({
+								fillOpacity: 1,
+
+								color: 'black', // More red than green and blue => redish color
+								fillColor: 'black',
+
+								weight: 10
+							});
+							layer.bindPopup(
+								'<p class="border center">' +
+									layer.feature.properties.name +
+									'</p><p class="border center">' +
+									layer.feature.properties.description +
+									'</p><p class="border center">' +
+									layer.feature.properties.EN +
+									'</p>'
+							);
+							/*layer.on('mouseover', function(e) {
+								this.openPopup();
+							});
+							layer.on('mouseout', function(e) {
+								this.closePopup();
+							});*/
+						} else if (
+							layer.feature.geometry.type === 'GeometryCollection'
+						) {
+							layer.setStyle({
+								weight: 2,
+								opacity: 1,
+								color: 'black',
+								dashArray: '3',
+								fillOpacity: 0.3,
+								fillColor: 'black'
+							});
+							layer.bindPopup(
+								'<p class="border center">' +
+									layer.feature.properties.name +
+									'</p><p class="border center">' +
+									layer.feature.properties.description +
+									'</p><p class="border center">' +
+									layer.feature.properties.EN +
+									'</p>'
+							);
+
+							/*layer.on('mouseover', function(e) {
+								this.openPopup();
+							});
+							layer.on('mouseout', function(e) {
+								this.closePopup();
+							});*/
+						} else if (layer.feature.geometry.type === 'Point') {
+							/*var highlightStyle = {
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    };
+            layer.setIcon(highlightStyle);*/
+							/*var myIcon = L.icon({
+    iconUrl: 'leaf-green.png',
+    iconSize: [38, 95],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+    shadowUrl: 'leaf-green.png',
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+});*/
+
+							const markerHtmlStyles = `
+  background-color: black;
+  width: 1rem;
+  height: 1rem;
+  display: block;
+  position: relative;
+  border-radius: 1rem;
+`;
+
+							var myIconCss = L.divIcon({
+								className: 'my-custom-pin',
+								iconAnchor: [0, 24],
+								labelAnchor: [-6, 0],
+								popupAnchor: [0, -36],
+								html: `<span style="${markerHtmlStyles}" />`
+							});
+
+							/*const markerHtmlStyles = `
+  background-color: black;
+  width: 1rem;
+  height: 1rem;
+  display: block;
+  left: -1.5rem;
+  top: -1.5rem;
+  position: relative;
+  border-radius: 3rem 3rem 0;
+  transform: rotate(45deg);
+  border: 1px solid #FFFFFF`
+
+                      var myIconCss = L.divIcon({
+  className: "my-custom-pin",
+  iconAnchor: [0, 24],
+  labelAnchor: [-6, 0],
+  popupAnchor: [0, -36],
+  html: `<span style="${markerHtmlStyles}" />`
+});*/
+
+							layer.setIcon(myIconCss);
+							layer.bindPopup(
+								'<p class="border center">' +
+									layer.feature.properties.name +
+									'</p><p class="border center">' +
+									layer.feature.properties.description +
+									'</p><p class="border center">' +
+									layer.feature.properties.EN +
+									'</p>'
+							);
+							/*layer.on('mouseover', function(e) {
+								this.openPopup();
+							});
+							layer.on('mouseout', function(e) {
+								this.closePopup();
+							});*/
+						} else {
+							console.log('unknown geometry type');
+						}
+					});
+				});
+
+			/*var runLayer = omnivore.kml('https://www.google.com/maps/d/kml?forcekml=1&mid=1wuKq8Udq2hep4-juN6Ox0O8KHCrTa27G')
+    .on('ready', function() {
+        mymap.fitBounds(runLayer.getBounds());
+    })
+    .addTo(mymap);*/
+		</script>
+	</body>
+</html>

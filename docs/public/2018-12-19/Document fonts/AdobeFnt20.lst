@@ -1,0 +1,28 @@
+%!Adobe-FontList 1.20
+%Locale:0x409
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:SFProDisplay-Semibold
+FamilyName:SF Pro Display
+StyleName:Semibold
+MenuName:SF Pro Display
+StyleBits:0
+WeightClass:600
+WidthClass:5
+AngleClass:0
+FullName:SF Pro Display Semibold
+WritingScript:Roman
+OutlineFileName:/Users/gd/Dropbox/Parallel Monument/shared/2018-12-19/Document fonts/SF-Pro-Display-Semibold.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+VariableFontType:NonVariableFont
+FileLength:381776
+FileModTime:549906690
+NameArray:0,Win,1,SF Pro Display
+NameArray:0,Win,16,SF Pro Display
+%EndFont
+

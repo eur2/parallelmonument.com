@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>PM</name>
+    <description/>
+    <Style id="icon-1499-0F9D58-nodesc-normal">
+      <IconStyle>
+        <color>ff589d0f</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1499-0F9D58-nodesc-highlight">
+      <IconStyle>
+        <color>ff589d0f</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1499-0F9D58-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1499-0F9D58-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1499-0F9D58-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1739-E65100-nodesc-normal">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="icon-1739-E65100-nodesc-highlight">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="icon-1739-E65100-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1739-E65100-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1739-E65100-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-0288D1-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-000000-1000-normal">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>1</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-000000-1000-highlight">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>1.5</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-000000-1000">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-000000-1000-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-000000-1000-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-000000-1200-normal">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>1.2</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-000000-1200-highlight">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>1.8</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-000000-1200">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-000000-1200-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-000000-1200-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-9C27B0-6038-nodesc-normal">
+      <LineStyle>
+        <color>ffb0279c</color>
+        <width>6.038</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-9C27B0-6038-nodesc-highlight">
+      <LineStyle>
+        <color>ffb0279c</color>
+        <width>9.057</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-9C27B0-6038-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-9C27B0-6038-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-9C27B0-6038-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-CE93D8-6619-nodesc-normal">
+      <LineStyle>
+        <color>ffd893ce</color>
+        <width>6.619</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <Style id="line-CE93D8-6619-nodesc-highlight">
+      <LineStyle>
+        <color>ffd893ce</color>
+        <width>9.9285</width>
+      </LineStyle>
+      <BalloonStyle>
+        <text><![CDATA[<h3>$[name]</h3>]]></text>
+      </BalloonStyle>
+    </Style>
+    <StyleMap id="line-CE93D8-6619-nodesc">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-CE93D8-6619-nodesc-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-CE93D8-6619-nodesc-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="line-F57C00-11463-normal">
+      <LineStyle>
+        <color>ff007cf5</color>
+        <width>11.463</width>
+      </LineStyle>
+    </Style>
+    <Style id="line-F57C00-11463-highlight">
+      <LineStyle>
+        <color>ff007cf5</color>
+        <width>17.1945</width>
+      </LineStyle>
+    </Style>
+    <StyleMap id="line-F57C00-11463">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#line-F57C00-11463-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#line-F57C00-11463-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-000000-6901-0-normal">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>6.901</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>00000000</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="poly-000000-6901-0-highlight">
+      <LineStyle>
+        <color>ff000000</color>
+        <width>10.3515</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>00000000</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+    </Style>
+    <StyleMap id="poly-000000-6901-0">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-000000-6901-0-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-000000-6901-0-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="poly-FFEA00-10400-117-normal">
+      <LineStyle>
+        <color>ff00eaff</color>
+        <width>10.4</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>7500eaff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+    </Style>
+    <Style id="poly-FFEA00-10400-117-highlight">
+      <LineStyle>
+        <color>ff00eaff</color>
+        <width>15.6</width>
+      </LineStyle>
+      <PolyStyle>
+        <color>7500eaff</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+    </Style>
+    <StyleMap id="poly-FFEA00-10400-117">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#poly-FFEA00-10400-117-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#poly-FFEA00-10400-117-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Untitled layer</name>
+      <Placemark>
+        <name>02/02/2000</name>
+        <description>Bouna Traoré (15 ans) et Zyed Benna (17 ans) meurent par électrocution, alors qu’ils s’étaient réfugiés dans un local en béton abritant une réactance, pour fuir la police. Leur disparition a été à l’origine, de plusieurs semaines de protestations dans les banlieues.</description>
+        <styleUrl>#icon-1899-0288D1</styleUrl>
+        <Point>
+          <coordinates>
+            2.3496705,48.8953374,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>06/02/2011
+</name>
+        <description>Incendie du campement de Roms de 900 m² abritant une soixantaine de personnes. Un corps calciné est retrouvé sans pouvoir être identifié. L’enquête conclut que l’incendie est volontaire.</description>
+        <styleUrl>#poly-FFEA00-10400-117</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                2.3696005,48.866409,0
+                2.3795533,48.8675428,0
+                2.4008442,48.8546652,0
+                2.3915663,48.8711551,0
+                2.3912292,48.875442,0
+                2.3747648,48.8823396,0
+                2.3696005,48.866409,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>10/10/1998</name>
+        <description>Bouna Traoré (15 ans) et Zyed Benna (17 ans) meurent par électrocution, alors qu’ils s’étaient réfugiés dans un local en béton abritant une réactance, pour fuir la police. Leur disparition a été à l’origine, de plusieurs semaines de protestations dans les banlieues.</description>
+        <styleUrl>#line-F57C00-11463</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.3345004,48.8859247,0
+            2.3221928,48.8899197,0
+            2.3085115,48.8878181,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>27/10/1998</name>
+        <description>Bouna Traoré (15 ans) et Zyed Benna (17 ans) meurent par électrocution, alors qu’ils s’étaient réfugiés dans un local en béton abritant une réactance, pour fuir la police. Leur disparition a été à l’origine, de plusieurs semaines de protestations dans les banlieues.</description>
+        <styleUrl>#poly-000000-6901-0</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>
+                2.3041456,48.8574442,0
+                2.2756164,48.8381592,0
+                2.3211191,48.8382941,0
+                2.3041456,48.8574442,0
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>14/12/2007</name>
+        <description>Bouna Traoré (15 ans) et Zyed Benna (17 ans) meurent par électrocution, alors qu’ils s’étaient réfugiés dans un local en béton abritant une réactance, pour fuir la police. Leur disparition a été à l’origine, de plusieurs semaines de protestations dans les banlieues.</description>
+        <styleUrl>#line-000000-1000</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.3443863,48.8438107,0
+            2.3569915,48.8461887,0
+            2.3357117,48.8486448,0
+            2.3447034,48.8273727,0
+            2.3467918,48.8347324,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>12/12/2018</name>
+        <description>Bouna Traoré (15 ans) et Zyed Benna (17 ans) meurent par électrocution, alors qu’ils s’étaient réfugiés dans un local en béton abritant une réactance, pour fuir la police. Leur disparition a été à l’origine, de plusieurs semaines de protestations dans les banlieues.</description>
+        <styleUrl>#line-000000-1200</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.3364562,48.8726722,0
+            2.339117,48.8701317,0
+            2.3426348,48.8725589,0
+            2.3438364,48.8689457,0
+            2.3464984,48.8722206,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>01/01/2000</name>
+        <description>Bouna Traoré (15 ans) et Zyed Benna (17 ans) meurent par électrocution, alors qu’ils s’étaient réfugiés dans un local en béton abritant une réactance, pour fuir la police. Leur disparition a été à l’origine, de plusieurs semaines de protestations dans les banlieues.</description>
+        <styleUrl>#line-000000-1200</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.3571433,48.8599684,0
+            2.3586453,48.8588672,0
+            2.3607052,48.8598554,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Parcours test</name>
+        <styleUrl>#line-CE93D8-6619-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.3315038,48.8458658,0
+            2.3317505,48.8494736,0
+            2.3320295,48.8513656,0
+            2.3331453,48.8512527,0
+            2.3337997,48.8512386,0
+            2.3337032,48.8526787,0
+            2.3356666,48.8530317,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Ligne 9</name>
+        <styleUrl>#line-9C27B0-6038-nodesc</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>
+            2.314128,48.8717379,0
+            2.3130336,48.8704958,0
+            2.3108879,48.8694231,0
+            2.3106304,48.8696066,0
+            2.310051,48.8696772,0
+            2.3092785,48.869409,0
+            2.3090425,48.8689997,0
+            2.3091498,48.8686327,0
+            2.3095789,48.868421,0
+            2.3100081,48.868294,0
+            2.3102012,48.8683787,0
+            2.3101154,48.8687739,0
+            2.3103729,48.8688868,0
+            2.3139349,48.8677294,0
+            2.3145786,48.868788,0
+            2.3149005,48.8684775,0
+            2.3153511,48.8683363,0
+            2.3158231,48.8683222,0
+            2.3161235,48.8683787,0
+            2.3176685,48.8703829,0
+          </coordinates>
+        </LineString>
+      </Placemark>
+      <Placemark>
+        <name>Point 10</name>
+        <styleUrl>#icon-1739-E65100-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            2.3230973,48.8715403,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Point 11</name>
+        <styleUrl>#icon-1499-0F9D58-nodesc</styleUrl>
+        <Point>
+          <coordinates>
+            2.3509493,48.8752026,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
